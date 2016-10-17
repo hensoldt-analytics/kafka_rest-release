@@ -1,0 +1,20 @@
+zookeeperHost: localhost:2181
+
+producer:
+  "bootstrap.servers": "localhost:9092"
+
+consumer:
+  "bootstrap.servers": "localhost:9092"
+  "auto.offset.reset": "earliest"
+
+restconfig:
+  "id": "1"
+  "simpleconsumer.poll.timeout": "1000"
+  "simpleconsumer.pool.max.size": "10"
+  "simpleconsumer.pool.instance.timeout": "1000"
+
+
+logging:
+  loggers:
+    org.glassfish.jersey.filter.LoggingFilter: INFO
+    org.apache.kafka.rest: DEBUG
