@@ -15,60 +15,66 @@
 # limitations under the License.
 
 
-bin=`dirname "$0"`
-bin=`cd "$bin"; pwd`
-KAFKA_REST_HOME=$bin/..
-
-NOW=`date "+%Y%m%d%H%M%S"`
-GC_OPTS="-XX:+PrintHeapAtGC -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintTenuringDistribution -Xloggc:$bin/../logs/gc.log.$NOW"
-JAVA_OPTS="-Xms1024m -Xmx1024m -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:NewRatio=3 -XX:+UseCompressedOops $GC_OPTS"
-
-if [ -d "/var/run/kafka-rest-api" ]; then
-    PIDFILE="/var/run/kafka-rest-api/kafka-rest-api.pid"
-else
-    PIDFILE="$bin/../kafka-rest-api.pid"
+if [ "x$STREAMLINE_HEAP_OPTS" = "x" ]; then
+    export KAFKA_REST_HEAP_OPTS="-Xmx1G -Xms1G"
 fi
 
-# create logs dir if it doesn't exist
-if [ ! -d $bin/../logs ]; then
-    mkdir -p $bin/../logs
+if [ $# -lt 1 ];
+then
+	  echo "USAGE: $0 [-daemon] streamline.yaml"
+	  exit 1
+fi
+base_dir=$(dirname $0)/..
+
+EXTRA_ARGS="-name KafkaRESTServer"
+
+# create logs directory
+if [ "x$LOG_DIR" = "x" ]; then
+    LOG_DIR="$base_dir/logs"
 fi
 
-# if this is a developer then use the main jar in the build directory
-if [ -d $bin/../target ]; then
-    MAIN_JAR_PATH="$bin/../target/rest-api-*.jar"
-    if [ "$DAEMON_DETACHED" = "" ]; then
-        DAEMON_DETACHED=true
-    fi
-else
-    MAIN_JAR_PATH="$bin/../rest-api-*.jar"
-    if [ "$DAEMON_DETACHED" = "" ]; then
-        DAEMON_DETACHED=true
-    fi
+if [ ! -d "$LOG_DIR" ]; then
+    mkdir -p "$LOG_DIR"
 fi
-
-# add main jar
-for lib in `ls $MAIN_JAR_PATH`; do
-    CLASSPATH=${CLASSPATH}:$lib
-done
 
 # add dependency libs
-if [  -d $bin/../lib ]; then
- for lib in `ls $bin/../lib/*.jar`; do
+ for lib in `ls $base_dir/libs/*.jar`; do
     CLASSPATH=${CLASSPATH}:$lib
  done
-fi
 
 
-if [ "$DAEMON_DETACHED" = false ]; then
-    java $JAVA_OPTS -cp $CLASSPATH "org.apache.kafka.rest.KafkaRestApplication" "server" $KAFKA_REST_HOME/conf/kafka-rest.yml
-    RETVAL=$?
+COMMAND=$1
+case $COMMAND in
+    -name)
+        DAEMON_NAME=$2
+        CONSOLE_OUTPUT_FILE=$LOG_DIR/$DAEMON_NAME.out
+        shift 2
+        ;;
+    -daemon)
+        DAEMON_MODE=true
+        shift
+        ;;
+    *)
+        ;;
+esac
+
+# Which java to use
+if [ -z "$JAVA_HOME" ]; then
+    JAVA="java"
 else
-    nohup java $JAVA_OPTS -cp $CLASSPATH "org.apache.kafka.rest.KafkaRestApplication" "server" $KAFKA_REST_HOME/conf/kafka-rest.yml > $bin/../logs/kafkarestapi.out 2>&1 < /dev/null &
-    PID=$!
-    RETVAL=$?
-    echo $PID > $PIDFILE
-    echo "Started Rest Proxy!"
+    JAVA="$JAVA_HOME/bin/java"
 fi
 
-exit $RETVAL
+# JVM performance options
+if [ -z "$STREAMLINE_JVM_PERFORMANCE_OPTS" ]; then
+    KAFKA_REST_JVM_PERFORMANCE_OPTS="-server -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:+CMSScavengeBeforeRemark -XX:+DisableExplicitGC -Djava.awt.headless=true"
+fi
+
+echo $JAVA $KAFKA_REST_HEAP_OPTS $KAFKA_REST_JVM_PERFORMANCE_OPTS -cp $CLASSPATH $KAFKA_REST_OPTS "org.apache.kafka.rest.KafkaRestApplication" "server" "$@"
+
+# Launch mode
+if [ "x$DAEMON_MODE" = "xtrue" ]; then
+    nohup $JAVA $KAFKA_REST_HEAP_OPTS $KAFKA_REST_JVM_PERFORMANCE_OPTS -cp $CLASSPATH $KAFKA_REST_OPTS "org.apache.kafka.rest.KafkaRestApplication" "server" "$@" > "$CONSOLE_OUTPUT_FILE" 2>&1 < /dev/null &
+else
+    exec $JAVA $KAFKA_REST_HEAP_OPTS $KAFKA_REST_JVM_PERFORMANCE_OPTS -cp $CLASSPATH $KAFKA_REST_OPTS "org.apache.kafka.rest.KafkaRestApplication" "server" "$@"
+fi
