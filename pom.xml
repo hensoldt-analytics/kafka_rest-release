@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
@@ -28,13 +29,6 @@
         </license>
     </licenses>
 
-    <scm>
-        <connection>scm:git:git://github.com/confluentinc/kafka-rest.git</connection>
-        <developerConnection>scm:git:git@github.com:confluentinc/kafka-rest.git</developerConnection>
-        <url>https://github.com/confluentinc/kafka-rest</url>
-        <tag>HEAD</tag>
-    </scm>
-
     <properties>
         <confluent.version>3.1.1</confluent.version>
         <kafka.version>0.10.1.0</kafka.version>
@@ -48,6 +42,16 @@
 
     <repositories>
         <repository>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>central</id>
+            <url>http://repo1.maven.org/maven2/</url>
+        </repository>
+	<repository>
             <id>confluent</id>
             <name>Confluent</name>
             <url>${confluent.maven.repo}</url>
