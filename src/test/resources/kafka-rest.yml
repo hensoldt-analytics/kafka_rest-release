@@ -1,9 +1,0 @@
-zookeeperHost: localhost:2181
-producer:
-  "bootstrap.servers": "localhost:9092"
-
-server:
-
-logging:
-  loggers:
-    org.glassfish.jersey.filter.LoggingFilter: INFO
