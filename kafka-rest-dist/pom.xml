@@ -27,7 +27,7 @@
     <groupId>com.hortonworks</groupId>
     <artifactId>kafka-rest-bin</artifactId>
     <version>0.1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
     <name>kafka-rest-bin</name>
     <description>Kafka Rest binary distribution</description>
 
