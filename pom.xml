@@ -24,6 +24,7 @@
         <confluent.version>3.1.1</confluent.version>
         <kafka.version>0.10.1.0</kafka.version>
         <kafka.scala.version>2.11</kafka.scala.version>
+        <schema-registry-version>0.1.0-SNAPSHOT</schema-registry-version>
         <junit.version>4.12</junit.version>
         <easymock.version>3.0</easymock.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -41,10 +42,21 @@
             <id>central</id>
             <url>http://repo1.maven.org/maven2/</url>
         </repository>
-	      <repository>
-          <id>confluent</id>
+        <repository>
+            <id>confluent</id>
             <name>Confluent</name>
             <url>${confluent.maven.repo}</url>
+        </repository>
+        <repository>
+            <id>hortonworks.repo</id>
+            <url>http://nexus-private.hortonworks.com/nexus/content/groups/public/</url>
+            <name>Hortonworks Repo</name>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
         </repository>
     </repositories>
 

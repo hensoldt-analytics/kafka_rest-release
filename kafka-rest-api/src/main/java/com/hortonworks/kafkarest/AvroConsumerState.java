@@ -22,7 +22,6 @@ import java.util.Properties;
 
 import com.hortonworks.kafkarest.converters.AvroConverter;
 import com.hortonworks.kafkarest.entities.AvroConsumerRecord;
-import io.confluent.kafka.serializers.KafkaAvroDecoder;
 import kafka.javaapi.consumer.ConsumerConnector;
 import kafka.message.MessageAndMetadata;
 import kafka.serializer.Decoder;

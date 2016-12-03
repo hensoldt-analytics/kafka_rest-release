@@ -17,6 +17,7 @@ package com.hortonworks.kafkarest.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import org.apache.registries.schemaregistry.SchemaIdVersion;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import java.util.List;
@@ -26,9 +27,9 @@ public class ProduceResponse {
   @NotEmpty
   private List<PartitionOffset> offsets;
 
-  private Integer keySchemaId;
+  private SchemaIdVersion keySchemaId;
 
-  private Integer valueSchemaId;
+  private SchemaIdVersion valueSchemaId;
 
   @JsonProperty
   public List<PartitionOffset> getOffsets() {
@@ -41,20 +42,20 @@ public class ProduceResponse {
   }
 
   @JsonProperty("key_schema_id")
-  public Integer getKeySchemaId() {
+  public SchemaIdVersion getKeySchemaId() {
     return keySchemaId;
   }
 
-  public void setKeySchemaId(Integer keySchemaId) {
+  public void setKeySchemaId(SchemaIdVersion keySchemaId) {
     this.keySchemaId = keySchemaId;
   }
 
   @JsonProperty("value_schema_id")
-  public Integer getValueSchemaId() {
+  public SchemaIdVersion getValueSchemaId() {
     return valueSchemaId;
   }
 
-  public void setValueSchemaId(Integer valueSchemaId) {
+  public void setValueSchemaId(SchemaIdVersion valueSchemaId) {
     this.valueSchemaId = valueSchemaId;
   }
 }

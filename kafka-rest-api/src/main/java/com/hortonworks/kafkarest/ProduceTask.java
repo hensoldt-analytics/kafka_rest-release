@@ -18,6 +18,7 @@ package com.hortonworks.kafkarest;
 
 import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.RecordMetadata;
+import org.apache.registries.schemaregistry.SchemaIdVersion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,8 +38,8 @@ public class ProduceTask {
   private final int numRecords;
   private final ProducerPool.ProduceRequestCallback callback;
   private int completed;
-  private Integer keySchemaId;
-  private Integer valueSchemaId;
+  private SchemaIdVersion keySchemaId;
+  private SchemaIdVersion valueSchemaId;
   private List<RecordMetadataOrException> results;
 
   public ProduceTask(SchemaHolder schemaHolder, int numRecords,
@@ -82,7 +83,7 @@ public class ProduceTask {
     return schemaHolder;
   }
 
-  public void setSchemaIds(Integer keySchemaId, Integer valueSchemaId) {
+  public void setSchemaIds(SchemaIdVersion keySchemaId, SchemaIdVersion valueSchemaId) {
     this.keySchemaId = keySchemaId;
     this.valueSchemaId = valueSchemaId;
   }

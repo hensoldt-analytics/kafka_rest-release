@@ -28,6 +28,7 @@ import com.hortonworks.kafkarest.entities.TopicProduceRequest;
 import org.apache.avro.Schema;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.TopicPartition;
+import org.apache.registries.schemaregistry.SchemaIdVersion;
 import org.easymock.Capture;
 import org.easymock.EasyMock;
 import org.easymock.IAnswer;
@@ -62,6 +63,8 @@ import static org.junit.Assert.assertEquals;
 // -- this just sanity checks the Jersey processing of these requests.
 public class TopicsResourceAvroProduceTest
     extends EmbeddedServerTestHarness<KafkaRestConfig, KafkaRestApplication> {
+  private static final SchemaIdVersion KEY_SCHEMA_ID = new SchemaIdVersion(1L, 1);
+  private static final SchemaIdVersion VALUE_SCHEMA_ID = new SchemaIdVersion(2L, 2);
 
   private MetadataObserver mdObserver;
   private ProducerPool producerPool;
@@ -142,7 +145,7 @@ public class TopicsResourceAvroProduceTest
         if (results == null) {
           throw new Exception();
         } else {
-          produceCallback.getValue().onCompletion(1, 2, results);
+          produceCallback.getValue().onCompletion(KEY_SCHEMA_ID, VALUE_SCHEMA_ID, results);
         }
         return null;
       }
@@ -175,8 +178,8 @@ public class TopicsResourceAvroProduceTest
         ProduceResponse response = rawResponse.readEntity(ProduceResponse.class);
 
         assertEquals(offsetResults, response.getOffsets());
-        assertEquals((Integer) 1, response.getKeySchemaId());
-        assertEquals((Integer) 2, response.getValueSchemaId());
+        assertEquals(KEY_SCHEMA_ID, response.getKeySchemaId());
+        assertEquals(VALUE_SCHEMA_ID, response.getValueSchemaId());
 
         EasyMock.reset(mdObserver, producerPool);
       }
@@ -187,8 +190,8 @@ public class TopicsResourceAvroProduceTest
       for (String requestMediatype : TestUtils.V1_REQUEST_ENTITY_TYPES_AVRO) {
         final TopicProduceRequest request = new TopicProduceRequest();
         request.setRecords(produceRecordsWithPartitionsAndKeys);
-        request.setKeySchemaId(1);
-        request.setValueSchemaId(2);
+        request.setKeySchemaId(KEY_SCHEMA_ID);
+        request.setValueSchemaId(VALUE_SCHEMA_ID);
 
         Response rawResponse =
             produceToTopic(topicName, mediatype.header, requestMediatype,

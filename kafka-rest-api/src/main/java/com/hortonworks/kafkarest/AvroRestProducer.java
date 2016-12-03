@@ -17,11 +17,16 @@
 package com.hortonworks.kafkarest;
 
 import com.fasterxml.jackson.databind.JsonNode;
-
+import com.hortonworks.kafkarest.converters.AvroConverter;
+import com.hortonworks.kafkarest.converters.ConversionException;
+import com.hortonworks.kafkarest.entities.ProduceRecord;
+import com.hortonworks.kafkarest.entities.SchemaHolder;
+import io.confluent.rest.exceptions.RestException;
 import org.apache.avro.Schema;
 import org.apache.avro.SchemaParseException;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.registries.schemaregistry.SchemaIdVersion;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,24 +34,16 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import io.confluent.kafka.schemaregistry.client.rest.exceptions.RestClientException;
-import io.confluent.kafka.serializers.KafkaAvroSerializer;
-import com.hortonworks.kafkarest.converters.AvroConverter;
-import com.hortonworks.kafkarest.converters.ConversionException;
-import com.hortonworks.kafkarest.entities.ProduceRecord;
-import com.hortonworks.kafkarest.entities.SchemaHolder;
-import io.confluent.rest.exceptions.RestException;
-
 public class AvroRestProducer implements RestProducer<JsonNode, JsonNode> {
 
   protected final KafkaProducer<Object, Object> producer;
-  protected final KafkaAvroSerializer keySerializer;
-  protected final KafkaAvroSerializer valueSerializer;
-  protected final Map<Schema, Integer> schemaIdCache;
+  protected final KafkaRestAvroSerializer keySerializer;
+  protected final KafkaRestAvroSerializer valueSerializer;
+  protected final Map<Schema, SchemaIdVersion> schemaIdCache;
 
   public AvroRestProducer(KafkaProducer<Object, Object> producer,
-                          KafkaAvroSerializer keySerializer,
-                          KafkaAvroSerializer valueSerializer) {
+                          KafkaRestAvroSerializer keySerializer,
+                          KafkaRestAvroSerializer valueSerializer) {
     this.producer = producer;
     this.keySerializer = keySerializer;
     this.valueSerializer = valueSerializer;
@@ -57,8 +54,9 @@ public class AvroRestProducer implements RestProducer<JsonNode, JsonNode> {
                       Collection<? extends ProduceRecord<JsonNode, JsonNode>> records) {
     SchemaHolder schemaHolder = task.getSchemaHolder();
     Schema keySchema = null, valueSchema = null;
-    Integer keySchemaId = schemaHolder.getKeySchemaId();
-    Integer valueSchemaId = schemaHolder.getValueSchemaId();
+    SchemaIdVersion keySchemaId = schemaHolder.getKeySchemaId();
+    SchemaIdVersion valueSchemaId = schemaHolder.getValueSchemaId();
+
     try {
       // If both ID and schema are null, that may be ok. Validation of the ProduceTask by the
       // caller should have checked this already.
@@ -87,13 +85,9 @@ public class AvroRestProducer implements RestProducer<JsonNode, JsonNode> {
           schemaIdCache.put(valueSchema, valueSchemaId);
         }
       }
-    } catch (RestClientException e) {
-      // FIXME We should return more specific error codes (unavailable vs registration failed in
-      // a way that isn't retriable?).
-      throw new RestException("Schema registration or lookup failed", 408, 40801, e);
     } catch (SchemaParseException e) {
       throw Errors.invalidSchemaException(e);
-    } catch (IOException e) {
+    } catch (Exception e) {
       throw new RestException("Schema registration or lookup failed", 408, 40801, e);
     }
 

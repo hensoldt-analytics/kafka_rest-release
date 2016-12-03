@@ -22,7 +22,6 @@ import com.hortonworks.kafkarest.entities.ConsumerInstanceConfig;
 import com.hortonworks.kafkarest.entities.CreateConsumerInstanceResponse;
 import com.hortonworks.kafkarest.entities.EmbeddedFormat;
 import com.hortonworks.kafkarest.entities.TopicPartitionOffset;
-import io.confluent.kafka.serializers.KafkaAvroSerializer;
 import io.confluent.kafka.serializers.KafkaJsonSerializer;
 import com.hortonworks.kafkarest.KafkaRestConfig;
 import com.hortonworks.kafkarest.TestUtils;
@@ -32,6 +31,7 @@ import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.ByteArraySerializer;
+import org.apache.registries.schemaregistry.serdes.avro.kafka.KafkaAvroSerializer;
 
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.GenericType;

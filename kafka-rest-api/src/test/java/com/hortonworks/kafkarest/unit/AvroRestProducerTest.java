@@ -20,12 +20,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.hortonworks.kafkarest.AvroRestProducer;
 import com.hortonworks.kafkarest.Errors;
+import com.hortonworks.kafkarest.KafkaRestAvroSerializer;
 import com.hortonworks.kafkarest.ProduceTask;
 import com.hortonworks.kafkarest.entities.AvroTopicProduceRecord;
 import org.apache.avro.Schema;
 import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.registries.schemaregistry.SchemaIdVersion;
 import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,7 +37,6 @@ import java.util.concurrent.Future;
 
 import javax.validation.ConstraintViolationException;
 
-import io.confluent.kafka.serializers.KafkaAvroSerializer;
 import com.hortonworks.kafkarest.ProducerPool;
 import com.hortonworks.kafkarest.entities.SchemaHolder;
 import io.confluent.rest.exceptions.RestConstraintViolationException;
@@ -46,8 +47,8 @@ public class AvroRestProducerTest {
 
   private static final ObjectMapper mapper = new ObjectMapper();
 
-  private KafkaAvroSerializer keySerializer;
-  private KafkaAvroSerializer valueSerializer;
+  private KafkaRestAvroSerializer keySerializer;
+  private KafkaRestAvroSerializer valueSerializer;
   private KafkaProducer<Object, Object> producer;
   private AvroRestProducer restProducer;
   private SchemaHolder schemaHolder;
@@ -55,8 +56,8 @@ public class AvroRestProducerTest {
 
   @Before
   public void setUp() {
-    keySerializer = EasyMock.createMock(KafkaAvroSerializer.class);
-    valueSerializer = EasyMock.createMock(KafkaAvroSerializer.class);
+    keySerializer = EasyMock.createMock(KafkaRestAvroSerializer.class);
+    valueSerializer = EasyMock.createMock(KafkaRestAvroSerializer.class);
     producer = EasyMock.createMock(KafkaProducer.class);
     restProducer = new AvroRestProducer(producer, keySerializer, valueSerializer);
     produceCallback = EasyMock.createMock(ProducerPool.ProduceRequestCallback.class);
@@ -80,6 +81,8 @@ public class AvroRestProducerTest {
   @Test
   public void testInvalidData() throws Exception {
     schemaHolder = new SchemaHolder(null, "\"int\"");
+    EasyMock.expect(valueSerializer.register(EasyMock.isA(String.class), EasyMock.isA(Schema.class))).andReturn(new SchemaIdVersion(1L, 1));
+    EasyMock.replay(valueSerializer);
     try {
       restProducer.produce(
           new ProduceTask(schemaHolder, 1, produceCallback),
@@ -103,7 +106,7 @@ public class AvroRestProducerTest {
 
   @Test
   public void testRepeatedProducer() throws Exception {
-    final int schemaId = 1;
+    final SchemaIdVersion schemaId = new SchemaIdVersion(1L, 1);
     final String valueSchemaStr = "{\"type\": \"record\", \"name\": \"User\", \"fields\": [{\"name\": \"name\", \"type\": \"string\"}]}";
     final Schema valueSchema = new Schema.Parser().parse(valueSchemaStr);
     // This is the key part of the test, we should only call register once with the same schema, and then see the lookup

@@ -17,7 +17,6 @@ package com.hortonworks.kafkarest;
 
 import com.hortonworks.kafkarest.entities.AvroConsumerRecord;
 import com.hortonworks.kafkarest.entities.EmbeddedFormat;
-import io.confluent.kafka.serializers.KafkaAvroDecoder;
 import io.confluent.kafka.serializers.KafkaJsonDecoder;
 import com.hortonworks.kafkarest.converters.AvroConverter;
 import com.hortonworks.kafkarest.entities.BinaryConsumerRecord;

@@ -18,6 +18,7 @@ package com.hortonworks.kafkarest.integration;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
+import com.hortonworks.kafkarest.KafkaAvroDecoder;
 import com.hortonworks.kafkarest.Versions;
 import com.hortonworks.kafkarest.entities.AvroProduceRecord;
 import com.hortonworks.kafkarest.entities.AvroTopicProduceRecord;
@@ -28,6 +29,7 @@ import com.hortonworks.kafkarest.entities.ProduceResponse;
 import com.hortonworks.kafkarest.entities.TopicProduceRecord;
 import com.hortonworks.kafkarest.entities.TopicProduceRequest;
 import org.apache.avro.Schema;
+import org.apache.registries.schemaregistry.SchemaIdVersion;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -38,7 +40,6 @@ import java.util.Properties;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Response;
 
-import io.confluent.kafka.serializers.KafkaAvroDecoder;
 import com.hortonworks.kafkarest.TestUtils;
 import com.hortonworks.kafkarest.entities.Partition;
 import com.hortonworks.kafkarest.entities.PartitionReplica;
@@ -59,6 +60,9 @@ public class AvroProducerTest extends ClusterTestHarness {
           new PartitionReplica(1, false, false)
       ))
   );
+
+  private static final SchemaIdVersion SCHEMA_ID_VERSION_1 = new SchemaIdVersion(1L, 1);
+  private static final SchemaIdVersion SCHEMA_ID_VERSION_2 = new SchemaIdVersion(3L, 1);
 
   private KafkaAvroDecoder avroDecoder;
 
@@ -149,8 +153,8 @@ public class AvroProducerTest extends ClusterTestHarness {
     TestUtils.assertTopicContains(zkConnect, topicName,
                                   payload.getRecords(), null,
                                   avroDecoder, avroDecoder, false);
-    assertEquals(produceResponse.getKeySchemaId(), (Integer) 1);
-    assertEquals(produceResponse.getValueSchemaId(), (Integer) 2);
+    assertEquals(produceResponse.getKeySchemaId(), SCHEMA_ID_VERSION_1);
+    assertEquals(produceResponse.getValueSchemaId(), SCHEMA_ID_VERSION_2);
   }
 
 
@@ -173,7 +177,7 @@ public class AvroProducerTest extends ClusterTestHarness {
     TestUtils.assertTopicContains(zkConnect, topicName,
                                   payload.getRecords(), (Integer) 0,
                                   avroDecoder, avroDecoder, false);
-    assertEquals((Integer) 1, poffsetResponse.getValueSchemaId());
+    assertEquals(SCHEMA_ID_VERSION_1, poffsetResponse.getValueSchemaId());
   }
 
   @Test

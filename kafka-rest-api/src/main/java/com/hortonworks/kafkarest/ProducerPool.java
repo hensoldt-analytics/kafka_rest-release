@@ -18,7 +18,6 @@ package com.hortonworks.kafkarest;
 import com.hortonworks.kafkarest.entities.EmbeddedFormat;
 import com.hortonworks.kafkarest.entities.ProduceRecord;
 import com.hortonworks.kafkarest.entities.SchemaHolder;
-import io.confluent.kafka.serializers.KafkaAvroSerializer;
 import io.confluent.kafka.serializers.KafkaJsonSerializer;
 import kafka.cluster.Broker;
 import kafka.cluster.EndPoint;
@@ -27,6 +26,7 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.ByteArraySerializer;
 import org.apache.kafka.common.serialization.Serializer;
+import org.apache.registries.schemaregistry.SchemaIdVersion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import scala.collection.JavaConversions;
@@ -106,9 +106,9 @@ public class ProducerPool {
   }
 
   private AvroRestProducer buildAvroProducer(Map<String, Object> avroProps) {
-    final KafkaAvroSerializer avroKeySerializer = new KafkaAvroSerializer();
+    final KafkaRestAvroSerializer avroKeySerializer = new KafkaRestAvroSerializer();
     avroKeySerializer.configure(avroProps, true);
-    final KafkaAvroSerializer avroValueSerializer = new KafkaAvroSerializer();
+    final KafkaRestAvroSerializer avroValueSerializer = new KafkaRestAvroSerializer();
     avroValueSerializer.configure(avroProps, false);
     KafkaProducer<Object, Object> avroProducer
         = new KafkaProducer<Object, Object>(avroProps, avroKeySerializer, avroValueSerializer);
@@ -171,10 +171,12 @@ public class ProducerPool {
     /**
      * Invoked when all messages have either been recorded or received an error
      *
+     * @param keySchemaId
+     * @param valueSchemaId
      * @param results list of responses, in the same order as the request. Each entry can be either
      *                a RecordAndMetadata for successful responses or an exception
      */
-    public void onCompletion(Integer keySchemaId, Integer valueSchemaId,
+    public void onCompletion(SchemaIdVersion keySchemaId, SchemaIdVersion valueSchemaId,
                              List<RecordMetadataOrException> results);
   }
 }

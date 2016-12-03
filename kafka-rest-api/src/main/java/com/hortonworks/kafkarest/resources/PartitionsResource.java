@@ -47,6 +47,7 @@ import com.hortonworks.kafkarest.entities.BinaryProduceRecord;
 import com.hortonworks.kafkarest.entities.JsonProduceRecord;
 import com.hortonworks.kafkarest.entities.Partition;
 import io.confluent.rest.annotations.PerformanceMetric;
+import org.apache.registries.schemaregistry.SchemaIdVersion;
 
 @Path("/topics/{topic}/partitions")
 @Produces({Versions.KAFKA_V1_JSON_BINARY_WEIGHTED_LOW, Versions.KAFKA_V1_JSON_AVRO_WEIGHTED_LOW,
@@ -214,7 +215,7 @@ public class PartitionsResource {
         request,
         request.getRecords(),
         new ProducerPool.ProduceRequestCallback() {
-          public void onCompletion(Integer keySchemaId, Integer valueSchemaId,
+          public void onCompletion(SchemaIdVersion keySchemaId, SchemaIdVersion valueSchemaId,
                                    List<RecordMetadataOrException> results) {
             ProduceResponse response = new ProduceResponse();
             List<PartitionOffset> offsets = new Vector<PartitionOffset>();

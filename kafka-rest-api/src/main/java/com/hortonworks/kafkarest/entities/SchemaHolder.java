@@ -17,14 +17,15 @@
 package com.hortonworks.kafkarest.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.apache.registries.schemaregistry.SchemaIdVersion;
 
 public class SchemaHolder {
 
   protected String keySchema;
-  protected Integer keySchemaId;
+  protected SchemaIdVersion keySchemaId;
 
   protected String valueSchema;
-  protected Integer valueSchemaId;
+  protected SchemaIdVersion valueSchemaId;
 
   public SchemaHolder() {
   }
@@ -33,8 +34,8 @@ public class SchemaHolder {
     this(keySchema, null, valueSchema, null);
   }
 
-  public SchemaHolder(String keySchema, Integer keySchemaId,
-                      String valueSchema, Integer valueSchemaId) {
+  public SchemaHolder(String keySchema, SchemaIdVersion keySchemaId,
+                      String valueSchema, SchemaIdVersion valueSchemaId) {
     this.keySchema = keySchema;
     this.keySchemaId = keySchemaId;
     this.valueSchema = valueSchema;
@@ -51,11 +52,11 @@ public class SchemaHolder {
   }
 
   @JsonProperty("key_schema_id")
-  public Integer getKeySchemaId() {
+  public SchemaIdVersion getKeySchemaId() {
     return keySchemaId;
   }
 
-  public void setKeySchemaId(Integer keySchemaId) {
+  public void setKeySchemaId(SchemaIdVersion keySchemaId) {
     this.keySchemaId = keySchemaId;
   }
 
@@ -69,11 +70,11 @@ public class SchemaHolder {
   }
 
   @JsonProperty("value_schema_id")
-  public Integer getValueSchemaId() {
+  public SchemaIdVersion getValueSchemaId() {
     return valueSchemaId;
   }
 
-  public void setValueSchemaId(Integer valueSchemaId) {
+  public void setValueSchemaId(SchemaIdVersion valueSchemaId) {
     this.valueSchemaId = valueSchemaId;
   }
 }

@@ -21,6 +21,7 @@ import com.hortonworks.kafkarest.entities.EmbeddedFormat;
 import com.hortonworks.kafkarest.entities.PartitionOffset;
 import org.apache.kafka.common.errors.RecordTooLargeException;
 import org.apache.kafka.common.security.JaasUtils;
+import org.apache.registries.schemaregistry.SchemaIdVersion;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -162,9 +163,9 @@ public class ProducerTest extends AbstractProducerTest {
                  new ProducerPool.ProduceRequestCallback() {
                    @Override
                    public void onCompletion(
-                       Integer keySchemaId,
-                       Integer valueSchemaId,
-                       List<RecordMetadataOrException> results) {
+                           SchemaIdVersion keySchemaId,
+                           SchemaIdVersion valueSchemaId,
+                           List<RecordMetadataOrException> results) {
                      sawCallback = true;
                      assertNotNull(results.get(0).getException());
                      assertEquals(results.get(0).getException().getClass(),
