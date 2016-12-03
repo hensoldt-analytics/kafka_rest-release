@@ -7,7 +7,7 @@
 
     <groupId>com.hortonworks</groupId>
     <artifactId>kafka-rest</artifactId>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
     <version>0.1.0-SNAPSHOT</version>
     <name>kafka-rest</name>
     <description>
@@ -28,7 +28,7 @@
         <confluent.version>3.1.1</confluent.version>
         <kafka.version>0.10.1.0</kafka.version>
         <kafka.scala.version>2.11</kafka.scala.version>
-        <confluent.junit.version>4.12</confluent.junit.version>
+        <junit.version>4.12</junit.version>
         <easymock.version>3.0</easymock.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <confluent.maven.repo>http://packages.confluent.io/maven/</confluent.maven.repo>
@@ -45,8 +45,8 @@
             <id>central</id>
             <url>http://repo1.maven.org/maven2/</url>
         </repository>
-	<repository>
-            <id>confluent</id>
+	      <repository>
+          <id>confluent</id>
             <name>Confluent</name>
             <url>${confluent.maven.repo}</url>
         </repository>
@@ -89,7 +89,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>${confluent.junit.version}</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
         <!-- End workaround -->
@@ -159,36 +159,13 @@
                         </execution>
                     </executions>
                 </plugin>
-                <!-- Enforces compilation using JDK 1.8. By default Maven uses JDK 1.5 -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <configuration>
-                        <source>1.8</source>
-                        <target>1.8</target>
+                        <source>1.7</source>
+                        <target>1.7</target>
                     </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-jar-plugin</artifactId>
-                    <version>${maven-jar-plugin.version}</version>
-                </plugin>
-
-                <!-- Test plugins -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>${maven-surefire.version}</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-failsafe-plugin</artifactId>
-                    <version>${maven-surefire.version}</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-report-plugin</artifactId>
-                    <version>${maven-surefire.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
