@@ -31,7 +31,7 @@ fi
 [ -z $MAX_WAIT_TIME ] && MAX_WAIT_TIME=120
 
 # KafkaRest env script
-. $KAFKA_REST_HOME/conf/kafka-rest-env.sh
+. $KAFKA_REST_HOME/config/kafka-rest-env.sh
 
 #KafkaRest PID
 PID=0
@@ -46,7 +46,7 @@ KAFKA_REST_LAUNCH_COMMAND=$1
 #App name
 APP_NAME=kafka-rest
 
-KAFKA_REST_START_CMD="$KAFKA_REST_HOME/bin/kafka-rest-start.sh $KAFKA_REST_HOME/conf/kafka-rest.yaml"
+KAFKA_REST_START_CMD="$KAFKA_REST_HOME/bin/kafka-rest-start.sh $KAFKA_REST_HOME/config/kafka-rest.properties"
 
 #Name of PID file
 [ -z $PID_DIR ] && PID_DIR="/var/run/$APP_NAME"

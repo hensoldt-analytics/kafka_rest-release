@@ -52,17 +52,17 @@
             $KAFKA_REST_HOME/conf
         -->
         <file>
-            <source>${project.basedir}./conf/kafka-rest.yaml</source>
+            <source>${project.basedir}./config/kafka-rest.properties</source>
             <outputDirectory>/conf</outputDirectory>
             <destName>kafka-rest.yaml</destName>
         </file>
         <file>
-            <source>${project.basedir}./conf/log4j.properties</source>
+            <source>${project.basedir}./config/log4j.properties</source>
             <outputDirectory>/conf</outputDirectory>
             <destName>log4j.properties</destName>
         </file>
         <file>
-            <source>${project.basedir}./conf/kafka-rest-env.sh</source>
+            <source>${project.basedir}./config/kafka-rest-env.sh</source>
             <outputDirectory>/conf</outputDirectory>
             <destName>kafka-rest-env.sh</destName>
         </file>

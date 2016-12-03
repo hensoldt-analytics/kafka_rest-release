@@ -68,10 +68,6 @@ the REST Proxy running using the default settings and some topics already create
 Installation
 ------------
 
-You can download prebuilt versions of the Kafka REST Proxy as part of the
-[Confluent Platform](http://confluent.io/downloads/). To install from source,
-follow the instructions in the Development section.
-
 
 Deployment
 ----------
@@ -80,21 +76,11 @@ The REST proxy includes a built-in Jetty server. The wrapper scripts
 ``bin/kafka-rest-start`` and ``bin/kafka-rest-stop`` are the recommended method of
 starting and stopping the service.
 
-Development
------------
-
-To build a development version, you may need a development versions of
-[common](https://github.com/confluentinc/common),
-[rest-utils](https://github.com/confluentinc/rest-utils), and
-[schema-registry](https://github.com/confluentinc/schema-registry).  After
-installing these, you can build the Kafka REST Proxy
-with Maven. All the standard lifecycle phases work.
-
 Contribute
 ----------
 
-- Source Code: https://github.com/confluentinc/kafka-rest
-- Issue Tracker: https://github.com/confluentinc/kafka-rest/issues
+- Source Code: https://github.com/hortonworks/kafka-rest
+- Issue Tracker: https://github.com/hortonworks/kafka-rest/issues
 
 License
 -------
