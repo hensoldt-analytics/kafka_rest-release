@@ -24,8 +24,8 @@ import com.hortonworks.kafkarest.SimpleConsumerManager;
 
 import org.apache.kafka.common.protocol.SecurityProtocol;
 import org.apache.kafka.common.security.JaasUtils;
-import org.apache.registries.schemaregistry.SchemaCompatibility;
-import org.apache.registries.schemaregistry.webservice.LocalSchemaRegistryServer;
+import com.hortonworks.registries.schemaregistry.SchemaCompatibility;
+import com.hortonworks.registries.schemaregistry.webservice.LocalSchemaRegistryServer;
 import org.eclipse.jetty.server.Server;
 import org.junit.After;
 import org.junit.Before;

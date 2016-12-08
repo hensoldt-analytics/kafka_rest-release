@@ -18,7 +18,7 @@ package com.hortonworks.kafkarest;
 
 import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.RecordMetadata;
-import org.apache.registries.schemaregistry.SchemaIdVersion;
+import com.hortonworks.registries.schemaregistry.SchemaIdVersion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

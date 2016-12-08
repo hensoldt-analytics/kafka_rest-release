@@ -19,7 +19,7 @@ package com.hortonworks.kafkarest;
 
 import kafka.serializer.Decoder;
 import kafka.utils.VerifiableProperties;
-import org.apache.registries.schemaregistry.serdes.avro.AvroSnapshotDeserializer;
+import com.hortonworks.registries.schemaregistry.serdes.avro.AvroSnapshotDeserializer;
 
 import java.io.ByteArrayInputStream;
 import java.util.HashMap;

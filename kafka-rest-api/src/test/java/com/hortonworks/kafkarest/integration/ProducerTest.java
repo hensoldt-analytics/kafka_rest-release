@@ -21,7 +21,7 @@ import com.hortonworks.kafkarest.entities.EmbeddedFormat;
 import com.hortonworks.kafkarest.entities.PartitionOffset;
 import org.apache.kafka.common.errors.RecordTooLargeException;
 import org.apache.kafka.common.security.JaasUtils;
-import org.apache.registries.schemaregistry.SchemaIdVersion;
+import com.hortonworks.registries.schemaregistry.SchemaIdVersion;
 import org.junit.Before;
 import org.junit.Test;
 

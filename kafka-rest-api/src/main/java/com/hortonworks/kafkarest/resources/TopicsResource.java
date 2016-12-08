@@ -30,7 +30,7 @@ import com.hortonworks.kafkarest.entities.BinaryTopicProduceRecord;
 import com.hortonworks.kafkarest.entities.JsonTopicProduceRecord;
 import com.hortonworks.kafkarest.entities.Topic;
 import io.confluent.rest.annotations.PerformanceMetric;
-import org.apache.registries.schemaregistry.SchemaIdVersion;
+import com.hortonworks.registries.schemaregistry.SchemaIdVersion;
 
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;

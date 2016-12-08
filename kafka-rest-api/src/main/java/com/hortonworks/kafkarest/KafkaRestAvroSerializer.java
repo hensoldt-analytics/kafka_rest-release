@@ -18,17 +18,17 @@
 package com.hortonworks.kafkarest;
 
 import org.apache.avro.Schema;
-import org.apache.registries.schemaregistry.SchemaIdVersion;
-import org.apache.registries.schemaregistry.SchemaMetadata;
-import org.apache.registries.schemaregistry.SchemaMetadataInfo;
-import org.apache.registries.schemaregistry.SchemaVersion;
-import org.apache.registries.schemaregistry.SchemaVersionInfo;
-import org.apache.registries.schemaregistry.SchemaVersionKey;
-import org.apache.registries.schemaregistry.client.SchemaRegistryClient;
-import org.apache.registries.schemaregistry.errors.IncompatibleSchemaException;
-import org.apache.registries.schemaregistry.errors.InvalidSchemaException;
-import org.apache.registries.schemaregistry.errors.SchemaNotFoundException;
-import org.apache.registries.schemaregistry.serdes.avro.kafka.KafkaAvroSerializer;
+import com.hortonworks.registries.schemaregistry.SchemaIdVersion;
+import com.hortonworks.registries.schemaregistry.SchemaMetadata;
+import com.hortonworks.registries.schemaregistry.SchemaMetadataInfo;
+import com.hortonworks.registries.schemaregistry.SchemaVersion;
+import com.hortonworks.registries.schemaregistry.SchemaVersionInfo;
+import com.hortonworks.registries.schemaregistry.SchemaVersionKey;
+import com.hortonworks.registries.schemaregistry.client.SchemaRegistryClient;
+import com.hortonworks.registries.schemaregistry.errors.IncompatibleSchemaException;
+import com.hortonworks.registries.schemaregistry.errors.InvalidSchemaException;
+import com.hortonworks.registries.schemaregistry.errors.SchemaNotFoundException;
+import com.hortonworks.registries.schemaregistry.serdes.avro.kafka.KafkaAvroSerializer;
 
 import java.util.Map;
 

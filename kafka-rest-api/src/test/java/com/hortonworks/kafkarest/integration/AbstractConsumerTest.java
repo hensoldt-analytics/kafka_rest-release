@@ -31,7 +31,7 @@ import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.ByteArraySerializer;
-import org.apache.registries.schemaregistry.serdes.avro.kafka.KafkaAvroSerializer;
+import com.hortonworks.registries.schemaregistry.serdes.avro.kafka.KafkaAvroSerializer;
 
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.GenericType;

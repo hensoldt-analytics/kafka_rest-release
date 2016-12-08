@@ -28,7 +28,7 @@ import com.hortonworks.kafkarest.entities.ProduceResponse;
 import com.hortonworks.kafkarest.resources.TopicsResource;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.TopicPartition;
-import org.apache.registries.schemaregistry.SchemaIdVersion;
+import com.hortonworks.registries.schemaregistry.SchemaIdVersion;
 import org.easymock.Capture;
 import org.easymock.EasyMock;
 import org.easymock.IAnswer;

@@ -29,7 +29,7 @@ import com.hortonworks.kafkarest.entities.ProduceResponse;
 import com.hortonworks.kafkarest.entities.TopicProduceRecord;
 import com.hortonworks.kafkarest.entities.TopicProduceRequest;
 import org.apache.avro.Schema;
-import org.apache.registries.schemaregistry.SchemaIdVersion;
+import com.hortonworks.registries.schemaregistry.SchemaIdVersion;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -27,7 +27,7 @@ import org.apache.avro.Schema;
 import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
-import org.apache.registries.schemaregistry.SchemaIdVersion;
+import com.hortonworks.registries.schemaregistry.SchemaIdVersion;
 import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;

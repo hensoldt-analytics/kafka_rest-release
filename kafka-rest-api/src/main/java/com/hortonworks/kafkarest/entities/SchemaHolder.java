@@ -17,7 +17,7 @@
 package com.hortonworks.kafkarest.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.apache.registries.schemaregistry.SchemaIdVersion;
+import com.hortonworks.registries.schemaregistry.SchemaIdVersion;
 
 public class SchemaHolder {
 

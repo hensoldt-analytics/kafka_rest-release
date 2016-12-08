@@ -47,7 +47,7 @@ import com.hortonworks.kafkarest.entities.BinaryProduceRecord;
 import com.hortonworks.kafkarest.entities.JsonProduceRecord;
 import com.hortonworks.kafkarest.entities.Partition;
 import io.confluent.rest.annotations.PerformanceMetric;
-import org.apache.registries.schemaregistry.SchemaIdVersion;
+import com.hortonworks.registries.schemaregistry.SchemaIdVersion;
 
 @Path("/topics/{topic}/partitions")
 @Produces({Versions.KAFKA_V1_JSON_BINARY_WEIGHTED_LOW, Versions.KAFKA_V1_JSON_AVRO_WEIGHTED_LOW,

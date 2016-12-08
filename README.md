@@ -1,6 +1,7 @@
 Kafka REST Proxy
 ================
 
+** This is a clone of https://github.com/confluentinc/kafka-rest **
 The Kafka REST Proxy provides a RESTful interface to a Kafka cluster. It makes
 it easy to produce and consume messages, view the state of the cluster, and
 perform administrative actions without using the native Kafka protocol or
