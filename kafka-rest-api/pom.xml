@@ -154,19 +154,31 @@
             <version>${schema-registry-version}</version>
             <scope>test</scope>
             <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-log4j12</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>log4j</groupId>
-                    <artifactId>log4j</artifactId>
-                </exclusion>
-                <!-- Removed dropwizard dependency as its jackson dependencies conflict with rest-utils dependencies -->
-                <exclusion>
-                    <groupId>io.dropwizard</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
+              <exclusion>
+                <groupId>org.apache.hadoop</groupId>
+                <artifactId>hadoop-common</artifactId>
+              </exclusion>
+              <exclusion>
+                <groupId>org.apache.hadoop</groupId>
+                <artifactId>hadoop-hdfs</artifactId>
+              </exclusion>
+              <exclusion>
+                <groupId>org.apache.hadoop</groupId>
+                <artifactId>hadoop-client</artifactId>
+              </exclusion>
+              <exclusion>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+              </exclusion>
+              <exclusion>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+              </exclusion>
+              <!-- Removed dropwizard dependency as its jackson dependencies conflict with rest-utils dependencies -->
+              <exclusion>
+                <groupId>io.dropwizard</groupId>
+                <artifactId>*</artifactId>
+              </exclusion>
             </exclusions>
         </dependency>
         <!-- Added io.dropwizard related dependencies for schema-registry dependency on tests -->
