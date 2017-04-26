@@ -41,6 +41,6 @@ public class KafkaAvroDecoder extends AvroSnapshotDeserializer implements Decode
 
   @Override
   public Object fromBytes(byte[] bytes) {
-    return deserialize(new ByteArrayInputStream(bytes), null, null);
+    return deserialize(new ByteArrayInputStream(bytes), null);
   }
 }

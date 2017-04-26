@@ -24,7 +24,7 @@
         <confluent.version>3.1.1</confluent.version>
         <kafka.version>0.10.1.0</kafka.version>
         <kafka.scala.version>2.11</kafka.scala.version>
-        <schema-registry-version>0.1.0-SNAPSHOT</schema-registry-version>
+        <schema-registry-version>0.2.0</schema-registry-version>
         <junit.version>4.12</junit.version>
         <easymock.version>3.0</easymock.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
