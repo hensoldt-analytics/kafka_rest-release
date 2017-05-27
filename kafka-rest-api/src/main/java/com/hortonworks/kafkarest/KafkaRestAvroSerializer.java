@@ -46,7 +46,7 @@ public class KafkaRestAvroSerializer extends KafkaAvroSerializer {
   }
 
   @Override
-  protected SchemaMetadata getSchemaKey(String topic, boolean isKey) {
+  public SchemaMetadata getSchemaKey(String topic, boolean isKey) {
     String name = topic + (isKey ? "-key" : "-value");
     return new SchemaMetadata.Builder(name).type("avro").schemaGroup("kafka").build();
   }
