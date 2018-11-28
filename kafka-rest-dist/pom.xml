@@ -21,12 +21,12 @@
   <parent>
         <artifactId>kafka-rest-parent</artifactId>
         <groupId>com.hortonworks</groupId>
-        <version>0.1.0-SNAPSHOT</version>
+        <version>0.1.0.3.0.1.21-2</version>
     </parent>
 
     <groupId>com.hortonworks</groupId>
     <artifactId>kafka-rest-bin</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.1.0.3.0.1.21-2</version>
     <packaging>pom</packaging>
     <name>kafka-rest-bin</name>
     <description>Kafka Rest binary distribution</description>

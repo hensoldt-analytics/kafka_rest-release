@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.hortonworks</groupId>
     <artifactId>kafka-rest-parent</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.1.0.3.0.1.21-2</version>
 
     <name>kafka-rest-parent</name>
     <description>REST services for Kafka.</description>
@@ -24,7 +22,7 @@
         <confluent.version>3.1.1</confluent.version>
         <kafka.version>0.10.1.0</kafka.version>
         <kafka.scala.version>2.11</kafka.scala.version>
-        <schema-registry-version>0.2.0</schema-registry-version>
+        <schema-registry-version>0.3.0.3.0.1.21-2</schema-registry-version>
         <junit.version>4.12</junit.version>
         <easymock.version>3.0</easymock.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
